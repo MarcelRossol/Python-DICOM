@@ -8,7 +8,7 @@ import os
 import numpy as np
 import pydicom
 import app_functions
-import cv2
+#import cv2
 
 
 ############### Initialize the App ###############
@@ -216,7 +216,7 @@ def anonymize():
 
             showinfo(message='The anonymization completed!')
 
-
+"""
 def convert_to_mp4():
     if dicom_files:
         path_to_mp4 = filedialog.askdirectory()
@@ -231,7 +231,7 @@ def convert_to_mp4():
                 out.write(cv2_img)
 
             out.release()
-            showinfo(message='The MP4 created!')
+            showinfo(message='The MP4 created!')"""
 
 
 frame_buttons_viewer = ttk.Frame(app)
@@ -266,9 +266,9 @@ anonymize_button.grid(row=1, column=1, padx=(20, 20))
 
 save_png_button = ttk.Button(frame_buttons, text='Save PNG', bootstyle='light', width=20, command=save_png)
 save_png_button.grid(row=2, column=0, padx=(20, 20), pady=(20, 20))
-
+"""
 mp4_button = ttk.Button(frame_buttons, text='MP4', bootstyle='light', width=20, command=convert_to_mp4)
-mp4_button.grid(row=2, column=1, pady=(20, 20))
+mp4_button.grid(row=2, column=1, pady=(20, 20))"""
 
 ############### Sliders ###############
 contrast_field = ttk.Frame(app)

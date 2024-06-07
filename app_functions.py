@@ -1,5 +1,5 @@
 import pydicom
-import cv2
+
 
 def return_information(dcm_file):
     infos_1 = f'''

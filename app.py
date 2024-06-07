@@ -1,19 +1,17 @@
 import ttkbootstrap as ttk
-from ttkbootstrap.constants import *
 from PIL import Image, ImageTk
-from tkinter import filedialog
-from tkinter.messagebox import showinfo
+import pydicom
+import numpy as np
 from glob import glob
 import os
-import numpy as np
-import pydicom
+from tkinter import filedialog
 import app_functions
-import cv2
+from tkinter.messagebox import showinfo
 
 
 ############### Initialize the App ###############
 app = ttk.Window()
-app.geometry("900x1300")  # width and height of the window
+app.geometry("900x900")  # width and height of the window
 app.style.theme_use('darkly')
 app.title('DICOM Viewer')
 width_height_viewer = 600
@@ -25,10 +23,6 @@ img_tk = ImageTk.PhotoImage(img)
 app_title = ttk.Label(app, text='DICOM Viewer', font='poppins 35 bold')
 app_title.pack()
 
-
-
-
-############### Functions ###############
 global dicom_files
 global max_v
 global min_v
@@ -50,7 +44,9 @@ def open_dicoms():
     global dicom_files
     path_dicoms = filedialog.askdirectory()
     dicom_files = sorted(glob(os.path.join(path_dicoms, '*.dcm')))
+
     if dicom_files:
+
         notification_label.configure(text='Folder contain dicom files', bootstyle='success')
 
     else:
@@ -62,7 +58,7 @@ def show(img):
     normalized_slice = Image.fromarray(img)
     normalized_slice = normalized_slice.resize((width_height_viewer, width_height_viewer))
     tk_image = ImageTk.PhotoImage(normalized_slice)
-    canvas_viewer.create_image(0, 0, anchor=NW, image=tk_image)
+    canvas_viewer.create_image(0, 0, image=tk_image)
 
 
 def prepare_dicoms(dcm_file, show=False, max_v=None, min_v=None):
@@ -93,14 +89,16 @@ def visualize(slice_number=0):
         actual_slice_number = slice_number
         slice_path = dicom_files[int(float(slice_number))]
         dcm_min_value, dcm_max_value = return_min_max(slice_path)
+
+
         slider_slices.configure(state='enabled', from_=0, to=len(dicom_files) - 1, value=actual_slice_number)
-        slider_max.configure(state='enabled', value=dcm_max_value)
-        slider_min.configure(state='enabled', value=dcm_min_value)
-        apply_button.configure(state='enabled')
-        change_button.configure(state='disabled')
+        #slider_max.configure(state='enabled', value=dcm_max_value)
+        #slider_min.configure(state='enabled', value=dcm_min_value)
+        #apply_button.configure(state='enabled')
+        #change_button.configure(state='disabled')
         slider_slices_value.configure(text=int(float(actual_slice_number)))
-        slider_max_value.configure(text=int(float(slider_max.get())))
-        slider_min_value.configure(text=int(float(slider_min.get())))
+        #slider_max_value.configure(text=int(float(slider_max.get())))
+        #slider_min_value.configure(text=int(float(slider_min.get())))
 
         normalized_slice = prepare_dicoms(slice_path)
         show(normalized_slice)
@@ -108,6 +106,7 @@ def visualize(slice_number=0):
         min_v = dcm_min_value
 
         notification_label.configure(text='You can now adjust the contrast', bootstyle='info')
+
 
 
 def scroll_slider(slice_number=0):
@@ -217,6 +216,7 @@ def anonymize():
             showinfo(message='The anonymization completed!')
 
 
+"""
 def convert_to_mp4():
     if dicom_files:
         path_to_mp4 = filedialog.askdirectory()
@@ -232,6 +232,7 @@ def convert_to_mp4():
 
             out.release()
             showinfo(message='The MP4 created!')
+"""
 
 
 frame_buttons_viewer = ttk.Frame(app)
@@ -249,7 +250,7 @@ frame_viewer.grid(row=1, column=0)
 canvas_viewer = ttk.Canvas(frame_viewer, width=width_height_viewer, height=width_height_viewer, bg="#FFFFFF")
 canvas_viewer.pack(pady=(20, 0))
 
-canvas_viewer.create_image(0, 0, anchor=NW, image=img_tk)
+
 
 ############### Buttons ###############
 open_button = ttk.Button(frame_buttons, text='Open', bootstyle='light', width=20, command=open_dicoms)
@@ -258,17 +259,22 @@ open_button.grid(row=0, column=0, padx=(20, 20), pady=(0, 20))
 visualize_button = ttk.Button(frame_buttons, text='Visualize', bootstyle='light', width=20, command=visualize)
 visualize_button.grid(row=0, column=1, padx=(20, 20), pady=(0, 20))
 
+
 show_info_button = ttk.Button(frame_buttons, text='Show info', bootstyle='light', width=20, command=show_info)
 show_info_button.grid(row=1, column=0, pady=(20, 20))
+
 
 anonymize_button = ttk.Button(frame_buttons, text='Anonymize', bootstyle='light', width=20, command=anonymize)
 anonymize_button.grid(row=1, column=1, padx=(20, 20))
 
 save_png_button = ttk.Button(frame_buttons, text='Save PNG', bootstyle='light', width=20, command=save_png)
 save_png_button.grid(row=2, column=0, padx=(20, 20), pady=(20, 20))
-
+"""
 mp4_button = ttk.Button(frame_buttons, text='MP4', bootstyle='light', width=20, command=convert_to_mp4)
 mp4_button.grid(row=2, column=1, pady=(20, 20))
+"""
+
+
 
 ############### Sliders ###############
 contrast_field = ttk.Frame(app)
@@ -304,12 +310,11 @@ slider_min_value.grid(pady=(30, 0), row=2, column=2)
 on_off_buttons = ttk.Frame(app)
 on_off_buttons.pack()
 
-apply_button = ttk.Button(on_off_buttons, text="Apply", bootstyle='success, outline', width=20, command=apply,
-                          state='disabled')
+apply_button = ttk.Button(on_off_buttons, text="Apply", bootstyle='success, outline', width=20, command=apply, state='disabled')
 apply_button.grid(pady=(20, 0), padx=(0, 10), row=0, column=0)
 
-change_button = ttk.Button(on_off_buttons, text="Change", bootstyle='warning, outline', width=20, command=change,
-                           state='disabled')
+change_button = ttk.Button(on_off_buttons, text="Change", bootstyle='warning, outline', width=20, command=change, state='disabled')
 change_button.grid(pady=(20, 0), padx=(10, 0), row=0, column=1)
+
 
 app.mainloop()

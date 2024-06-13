@@ -7,11 +7,7 @@ def return_information(dcm_file):
     SOP Class UID: {dcm_file.SOPClassUID}\n
     SOP Instance UID: {dcm_file.SOPInstanceUID}\n
     Study Date: {dcm_file.StudyDate}\n
-    Series Date: {dcm_file.SeriesDate}\n
-    Content Date: {dcm_file.ContentDate}\n
     Study Time: {dcm_file.StudyTime}\n
-    Series Time: {dcm_file.SeriesTime}\n
-    Content Time: {dcm_file.ContentTime}\n
     Accession Number: {dcm_file.AccessionNumber}\n
     Modality: {dcm_file.Modality}\n
     Manufacturer: {dcm_file.Manufacturer}\n
@@ -27,7 +23,6 @@ def return_information(dcm_file):
     '''
     infos_2 = f'''
     Study ID: {dcm_file.StudyID}\n
-    Series Number: {dcm_file.SeriesNumber}\n
     Instance Number: {dcm_file.InstanceNumber}\n
     Image Position Patient: {dcm_file.ImagePositionPatient}\n
     Image Orientation Patient: {dcm_file.ImageOrientationPatient}\n
@@ -42,11 +37,7 @@ def return_information(dcm_file):
     Bits Stored: {dcm_file.BitsStored}\n
     High Bit: {dcm_file.HighBit}\n
     Pixel Representation: {dcm_file.PixelRepresentation}\n
-    Window Center: {dcm_file.WindowCenter}\n
-    Window Width: {dcm_file.WindowWidth}\n
     Rescale Intercept: {dcm_file.RescaleIntercept}\n
-    Rescale Slope: {dcm_file.RescaleSlope}\n
-    RescaleType: {dcm_file.RescaleType}\n
     '''
     return infos_1, infos_2
 

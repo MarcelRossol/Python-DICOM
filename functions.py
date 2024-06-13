@@ -54,9 +54,10 @@ def show_img(path):
 
 if __name__ == "__main__":
     file_path = "test.dcm"
-    # get_metadata(path)
+
+    get_metadata(file_path)
     # pillow_show_img(file_path)
-    show_img(file_path)
+    #show_img(file_path)
 
 
 

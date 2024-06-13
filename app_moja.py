@@ -9,9 +9,9 @@ import numpy as np
 import pydicom
 import app_functions
 
-############### Initialize the App ###############
+# Initialize the App
 app = ttk.Window()
-app.geometry("900x1300")  # width and height of the window
+app.geometry("900x1100")  # width and height of the window
 app.style.theme_use('darkly')
 app.title('DICOM Viewer')
 width_height_viewer = 600
@@ -23,8 +23,7 @@ img_tk = ImageTk.PhotoImage(img)
 app_title = ttk.Label(app, text='DICOM Viewer', font='poppins 30 bold')
 app_title.pack()
 
-
-############### Functions ###############
+# Functions
 global dicom_files
 global max_v
 global min_v

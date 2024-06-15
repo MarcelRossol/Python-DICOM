@@ -1,26 +1,71 @@
+from datetime import datetime
+from collections import Counter
+
+def assign_first_lanes(conn_data, comp_data, ev_data):
+    # Gets first competition id
+    all_dates = []
+    for comp in comp_data:
+        all_dates.append(comp['comp_date'])
+    date_format = "%Y-%m-%d"
+    date_objects = [datetime.strptime(date, date_format) for date in all_dates]
+    oldest_date = min(date_objects)
+    oldest_date = oldest_date.strftime(date_format)
+
+    oldest_races = []
+    for conn in conn_data:
+
+
+
+
+    print(oldest_date)
+
+
+
+
 
 
 def assign_series_lane(conn_data, comp_data, ev_data, curr_date):
-    # Pozyskuje id aktualnej comp
+
+    # Gest past competition ids
+    date_format = "%Y-%m-%d"
+    curr_date = datetime.strptime(curr_date, date_format)
+    past_comps = []
     for comp in comp_data:
+        comp_date = datetime.strptime(comp['comp_date'], date_format)
+        if comp_date <= curr_date:
+            past_comp_id = comp['id']
+            past_comps.append(past_comp_id)
 
-        if comp['comp_date'] == curr_date:
-            curr_comp_id = comp['id']
+    # Gets all past races
+    past_races_all = []
+    for conn in conn_data:
+        if conn['comp_id'] in past_comps:
+            past_races_all.append(conn)
+
+    # Gets unique patricipat ids
+    part_id_all = []
+    for race in past_races_all:
+        part_id_all.append(race['usr_id'])
+    counter = Counter(part_id_all)
+    unique_part_ids = [item for item, count in counter.items() if count == 1]
+
+    # Gets best times
+    best_times_all = []
+    for part_id in unique_part_ids:
+        temp = []
+        for race in past_races_all:
+            if part_id == race['usr_id']:
+                temp.append(race)
 
 
-    print(curr_comp_id)
-"""    
-    past_races = []
-    for race in conn_data:
-        if race['comp_id'] < curr_comp_id:
-            
-            past_races.append(race) 
-        
-        
-        
-    for i in past_races:
-        print(i)
-    """
+
+
+
+
+
+    for comp in past_races_all:
+        print(comp)
+
 
 
 
@@ -64,4 +109,5 @@ ev_data = [{"event":"dowolny 50m","id":1},
 
 curr_date = "2024-03-10"
 
-assign_series_lane(conn_data, comp_data, ev_data, curr_date)
+#assign_series_lane(conn_data, comp_data, ev_data, curr_date)
+assign_first_lanes(conn_data, comp_data, ev_data)

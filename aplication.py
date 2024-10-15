@@ -288,7 +288,7 @@ def segment_slice(dcm_file, min_thresh, max_thresh):
 notification_label = ttk.Label(app, text='You need to open DICOM files', font='poppins 15 bold', bootstyle='info')
 notification_label.pack()
 
-############### Frame Containers ###############
+# Frame Containers #
 frame_buttons = ttk.Frame(app)
 frame_buttons.pack()
 
@@ -300,7 +300,7 @@ canvas_viewer.pack()
 
 canvas_viewer.create_image(0, 0, anchor=NW, image=img_tk)
 
-############### Buttons ###############
+# Buttons #
 open_button = ttk.Button(frame_buttons, text='Open', bootstyle='light', width=17, command=open_dicoms)
 open_button.grid(row=0, column=0, padx=(20, 20), pady=(20, 20))
 
@@ -319,7 +319,7 @@ save_png_button.grid(row=1, column=1, padx=(20, 20), pady=(0, 20))
 segmentation_button = ttk.Button(frame_buttons, text='Segmentation', bootstyle='light', width=17, command=open_segmentation_window)
 segmentation_button.grid(row=1, column=2, padx=(20, 20), pady=(0, 20))
 
-############### Sliders ###############
+# Sliders #
 contrast_field = ttk.Frame(app)
 contrast_field.pack()
 

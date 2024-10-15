@@ -7,7 +7,7 @@ from glob import glob
 import os
 import numpy as np
 import pydicom
-from scipy.ndimage import median_filter  # Add this import
+from scipy.ndimage import median_filter
 import app_functions
 
 # Initialize the App
